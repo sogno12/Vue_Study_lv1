@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <app-header></app-header>
+        <app-content></app-content>
+        <app-footer></app-footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 전역 컴포넌트 Vue.component('컴포넌트이름', 컴포넌트 이름)
+        Vue.component('app-header', {
+            template: '<h1>HEADER</h1>'
+        });
+        var appContent = {
+            template: '<h2> Content </h2>',
+        }
+        // 뷰 인스턴스
+        var vm = new Vue({
+            // el : 연결할 div영역을 지정 (ex.id="app"인 구역: "#app")
+            el: "#app",
+
+            // data : 데이터 값
+            data: {
+                message: 'hi',
+                memo: 'Hello',
+            },
+            // components : 지역 컴포넌트
+            components: {
+                // 컴포넌트이름 : 컴포넌트 내용
+                // 표현방법1
+                'app-content': appContent,
+                // 표현방법2
+                'app-footer': {
+                    template: '<footer>Footer</footer>'
+                },
+            },
+            // methods : 함수
+            methods: {
+                logText() {
+                    console.log(this.messageHi);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+
+        <div># Router-Link 영역 #</div>
+        <router-link to="/one">PageOne</router-link>
+        <router-link to="/two">PageTwo</router-link>
+        
+        <hr>
+        
+        <div># Router-View 영역 #</div>
+        <router-view></router-view>
+
+    </div>
+
+    <!-- 1) vue 먼저, 다음에 router 등록 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+    <script>
+        var pageOne = {
+            template: '<h1>PAGE ONE</h1>'
+        }
+        var pageTwo = {
+            template: '<h2>PAGE TWO</h2>'
+        }
+
+        // 3) 뷰 라우터 인스턴스 생성
+        var router = new VueRouter({
+            routes: [
+                // PageOne페이지원 정보
+                {
+                    //url 이름
+                    path: '/one',
+                    name: 'pageOne',
+                    component: pageOne,
+                },
+                // pageTow 페이지투 정보
+                {
+                    path: '/two',
+                    name: 'pageTwo',
+                    component: pageTwo,
+                }
+            ]
+        })
+
+        // 2) 뷰 인스턴스 생성
+        new Vue({
+            el: '#app',
+            router,     // 4)라우터 등록
+        })
+
+    </script>
+
+
+
+</body>
+
+</html>

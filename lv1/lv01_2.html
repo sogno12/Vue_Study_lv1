@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <!-- props - 상위>하위 데이터 전달-->
+        <!-- v-bind:프롭스속성이름='상위 컴포넌트의 데이터이름' -->
+        <app-content v-bind:propsdata='memo'></app-content>
+
+        <!-- Event emit -->
+        <!-- v-on: 하위 컴포넌트에서 발생한 이벤트 이름='상위 컴포넌트의 메서드 이름'-->
+        <app-content2 v-on:event='logText'></app-content2>
+
+        <!-- {{ }} 를 이용하면 data의 값을 가져와 쓸 수 있다. (이후내용추가)-->
+        <h1>{{message}}</h1>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var appContent = {
+            template: '<h2> propsdata : {{ propsdata }} </h2>',
+            // 프룹스 props - 상위>하위 데이터 전달 속성
+            // props : '값이름'
+            props: ['propsdata']
+        }
+        var appContent2 = {
+            template: '<button v-on:click="eventName">이벤트발생</button>',
+            methods: {
+                eventName() {
+                    this.$emit('event');
+                }
+            }
+        }
+
+        // 뷰 인스턴스
+        var vm = new Vue({
+            el: "#app",
+
+            data: {
+                message: 'hi',
+                memo: 'Hello',
+            },
+
+            components: {
+                'app-content': appContent,
+                'app-content2': appContent2,
+            },
+
+            methods: {
+                logText() {
+                    console.log(this.memo);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

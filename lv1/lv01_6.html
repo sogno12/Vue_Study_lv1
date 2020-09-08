@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!--
+            v-bind:id="id명" : id 지정
+            v-bind:class="class명" : class 지정
+                        ="{ class명 : true/false }" 값에따른 설정 가능
+        -->
+        <p v-bind:id="uid" v-bind:class="cname"> num : {{ num }}</p>
+        <p v-bind:class="{ warning : flag }"> double : {{ double }}</p>
+        <!--
+            v-on:click="method명" : 클릭을 통해 메소드 실행
+        -->
+        <button v-on:click="changeFlag">색 바꾸기</button>
+        <!--
+            v-if="true/false" , v-else : if값에 따라 실행부분이 나뉨
+        -->
+        <div v-if="flag">
+            flag true..
+        </div>
+        <div v-else>
+            flag false..
+        </div>
+        <!--
+            v-show="true/false" : 값에 따라 보여줄지 말지 선택가능
+        -->
+        <div v-show="flag">
+            flag ture!!
+        </div>
+        <hr>
+
+        ## 텍스트 입력하기 ## <br>
+        <input type="text" v-model="message" placeholder="입력" />
+        <p>Message is = {{ message }}</p>
+        <hr>
+
+        ## 값 바꾸기 ## <br>
+        <input type="number" v-model="num" placeholder="숫자입력" />
+        <button v-on:click="addNum">Plus One</button>
+        <p> num : {{ num }}</p>
+        <p> text : {{ text }}</p>
+        <button v-on:click="clear">Clear Text</button>
+
+
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                uid: 'abcd',
+                cname: 'back-blue',
+                flag: true,
+                message: '',
+                num: 10,
+                text: '',
+            },
+            computed: { // data값을 계산할 때 사용
+                double() {
+                    return this.num * 2;
+                },
+                errorText() {
+                    return this.flag ? 'warning' : null;
+                }
+            },
+            watch: { // 뷰 내의 값이바뀔 때를 인식하여 함수를 실행시킴
+                num() {
+                    this.logText();
+                }
+            },
+            methods: {
+                addNum() {
+                    this.num++;
+                },
+                logText() {
+                    this.text += '값 변경! '
+                },
+                changeFlag() {
+                    this.flag = !this.flag;
+                },
+                clear() {
+                    this.num=10;
+                    this.text='';
+                    this.message='';
+                }
+            }
+
+        })
+    </script>
+ 
+    <style>
+        .back-blue {
+            background-color: blue;
+        }
+        #abcd {
+            color: white;
+        }
+        .warning {
+            color: red;
+        }
+    </style>
+</body>
+</html>

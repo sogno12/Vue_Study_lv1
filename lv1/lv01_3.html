@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <!-- 이벤트를 받을 컴포넌트 -->
+    <app-content v-bind:propsdata="message"></app-content>
+    <!-- 이벤트를 실행하여 데이터를 보낼 컴포넌트 -->
+    <app-content2 v-on:event='sendEvent'></app-content2>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var appContent = {
+        template: '<h1>{{ propsdata }}</h1>',
+        props: ['propsdata']
+    }
+    var appContent2 = {
+        template: '<div><button v-on:click="eventHi">Event발생</button></div>',
+        methods: {
+            eventHi() {
+                //this.$emit('이벤트명', 보내는 값)
+                this.$emit('event', '이벤트 후');
+            }
+        }
+    }
+
+    new Vue({
+        el: '#app',
+        data: {
+            message: '이벤트 전'
+        },
+        components: {
+            'app-content': appContent,
+            'app-content2': appContent2,
+        },
+        methods: {
+            sendEvent(value) {
+                this.message = value;
+            }
+        }
+    })
+
+</script>
+    
+</body>
+</html>

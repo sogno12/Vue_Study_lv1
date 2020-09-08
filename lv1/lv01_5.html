@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button v-on:click="methodAxios">Click me: Get Data</button>
+        <div>
+            {{ users }}
+        </div>
+    </div>
+
+    <!-- vue CDN + Axios CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                users: [] //가져온 데이터를 담을 리스트
+            },
+            methods: {
+                methodAxios() {
+                    var vm = this;
+                    axios.get('https://jsonplaceholder.typicode.com/users/') //샘플데이터
+                        .then((response) => {
+                            //console.log(response);
+                            vm.users = response;
+                        })
+                        .catch((error) => {
+                            console.log(error);;
+                        })
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
